@@ -29,7 +29,7 @@ import helper_road_structure_topo as topo
 # - region [lat/lon]
 # - output folder
 # - (res) default is 0.25
-def generate_dataset(config):
+def generate_dataset(config, density = 0.00020):
 	output_folder = config["folder"]
 	region = config["region"]
 	img_size = config["size"]*2
@@ -73,7 +73,7 @@ def generate_dataset(config):
 		OSMRoadGraph.edgeScore[edge] = 100
 
 
-	topo.TOPOGenerateStartingPoints(OSMRoadGraph, density = 0.00020, region=region, image='NULL', check = False, direction = True, metaData = OSMMap, RoadNetworkCallback = roadNetwork)
+	topo.TOPOGenerateStartingPoints(OSMRoadGraph, density = density, region=region, image='NULL', check = False, direction = True, metaData = OSMMap, RoadNetworkCallback = roadNetwork)
 
 
 	roadNetwork.region = region 
@@ -96,7 +96,7 @@ max_lon = -71.0
 
 
 # only for 1 meter resolution
-def graphDensify(input_pickle_graph, vis=True):
+def graphDensify(input_pickle_graph, vis=True, density = 0.00020):
 
 	def xy2latlon(x,y):
 		lat = lat_top_left - x * 1.0 / 111111.0
@@ -171,7 +171,7 @@ def graphDensify(input_pickle_graph, vis=True):
 	region = [min_lat-30 * 1.0/111111.0, lon_top_left-50 * 1.0/111111.0, lat_top_left+30 * 1.0/111111.0, max_lon+50 * 1.0/111111.0]
 
 	roadNetwork = RoadNetwork()
-	topo.TOPOGenerateStartingPoints(graph, density = 0.00020, region=region, image='NULL', check = False, direction = True, metaData = None, RoadNetworkCallback = roadNetwork)
+	topo.TOPOGenerateStartingPoints(graph, density = density, region=region, image='NULL', check = False, direction = True, metaData = None, RoadNetworkCallback = roadNetwork)
 
 	node_neighbors = {}
 	def get_image_coordinate(lat, lon):
