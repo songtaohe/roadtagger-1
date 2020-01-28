@@ -55,8 +55,8 @@ for ilat in range(10):
 		
 		for nid in range(roadnetwork.node_num):
 			loc = roadnetwork.nid2loc[nid]
-			loc[0] /= 111111.0 
-			loc[1] /= 111111.0 
+			loc = [loc[0]/111111.0, loc[1]/111111.0]
+			
 
 			r_lat = 0.00010
 			r_lon = 0.00010 / math.cos(math.radians(33))
