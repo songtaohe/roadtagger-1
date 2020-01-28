@@ -45,7 +45,7 @@ for ilat in range(10):
 		path = "/data/songtao/roadtagger-1/pre_alpha_clean_version/dataset/la/region_%d_%d" % (ilat, ilon)
 		print(path)
 
-		roadnetwork = pickle.load(path+"/roadnetwork.p")
+		roadnetwork = pickle.load(open(path+"/roadnetwork.p","r"))
 
 		jsongraph = {}
 		jsongraph["nodes"] = []
