@@ -35,28 +35,28 @@ for item in dataset_cfg:
     lon = item["lon"]
 
     # Step-1 Generate Config Data
-    Popen("python roadtagger_generate_dataset.py config %f %f %d %d %s" % (lat, lon, ilat, ilon, prefix), shell=True).wait()
+    #Popen("python roadtagger_generate_dataset.py config %f %f %d %d %s" % (lat, lon, ilat, ilon, prefix), shell=True).wait()
 
     # Step-2
     # Download dataset from google map and OpenStreetMap
-    for i in range(ilat):
-        for j in range(ilon):
-            while len(pool) == max_processes:
-                sleep(1.0)
-                new_pool = []
-                for p in pool:
-                    if p.poll() is None:
-                        new_pool.append(p)
+    # for i in range(ilat):
+    #     for j in range(ilon):
+    #         while len(pool) == max_processes:
+    #             sleep(1.0)
+    #             new_pool = []
+    #             for p in pool:
+    #                 if p.poll() is None:
+    #                     new_pool.append(p)
 
-                pool = new_pool
+    #             pool = new_pool
 
-            print("start a new process ",prefix, i, j)
-            pool.append(Popen("python roadtagger_generate_dataset.py generate %s/region_%d_%d/config.json" % (prefix, i,j), shell=True))
+    #         print("start a new process ",prefix, i, j)
+    #         pool.append(Popen("python roadtagger_generate_dataset.py generate %s/region_%d_%d/config.json" % (prefix, i,j), shell=True))
 
-    continue
+    #continue
 
-    for p in pool:
-        p.wait() 
+    # for p in pool:
+    #     p.wait() 
 
      
     # Step-3
@@ -68,22 +68,22 @@ for item in dataset_cfg:
 
     # Step-4
     # Create Tiles
-    cc = 0 
-    for i in range(ilat):
-        for j in range(ilon):
-            cc += 1 
-            while len(pool) == max_processes:
-                sleep(1.0)
-                new_pool = []
-                for p in pool:
-                    if p.poll() is None:
-                        new_pool.append(p)
+    # cc = 0 
+    # for i in range(ilat):
+    #     for j in range(ilon):
+    #         cc += 1 
+    #         while len(pool) == max_processes:
+    #             sleep(1.0)
+    #             new_pool = []
+    #             for p in pool:
+    #                 if p.poll() is None:
+    #                     new_pool.append(p)
 
-                pool = new_pool
+    #             pool = new_pool
 
-            print("start a new process ",prefix, i, j)
-            pool.append(Popen("python roadtagger_generate_dataset.py tiles %s/region_%d_%d/config.json" % (prefix, i,j), shell=True))
-            #pool.append(Popen("python gen_dataset.py generate %s/region_%d_%d/config.json" % (prefix, i,j), shell=True))
+    #         print("start a new process ",prefix, i, j)
+    #         pool.append(Popen("python roadtagger_generate_dataset.py tiles %s/region_%d_%d/config.json" % (prefix, i,j), shell=True))
+    #         #pool.append(Popen("python gen_dataset.py generate %s/region_%d_%d/config.json" % (prefix, i,j), shell=True))
 
      
 for p in pool:
