@@ -15,7 +15,11 @@ def get_image_coordinate(lat, lon, size, region):
 
 	return x,y 
 
+def gps_distance(p1,p2):
+	x = (p1[0]-p2[0]) * 111111.0 
+	y = (p1[1]-p2[1]) * 111111.0 * math.cos(math.radians(p1[0]))
 
+	return math.sqrt(x*x + y*y )
 
 
 lights = []
@@ -45,6 +49,9 @@ for ilat in range(10):
 	for ilon in range(6):
 		path = "/data/songtao/roadtagger-1/pre_alpha_clean_version/dataset/la/region_%d_%d" % (ilat, ilon)
 		print(path)
+		cfg = json.load(open(path+"/config.json","r"))
+		region = cfg["region"]
+
 
 		roadnetwork = pickle.load(open(path+"/roadnetwork.p","r"))
 
@@ -52,23 +59,47 @@ for ilat in range(10):
 		jsongraph["nodes"] = []
 		jsongraph["edges"] = []
 		jsongraph["nodelabels"] = []
+
+		node_idx = index.Index()
 		
 		for nid in range(roadnetwork.node_num):
 			loc = roadnetwork.nid2loc[nid]
 			loc = [loc[0]/111111.0, loc[1]/111111.0]
 			
+			r = 0.000001 
 
-			r_lat = 0.00010
-			r_lon = 0.00010 / math.cos(math.radians(33))
+			node_idx.insert(cc, (loc[0]-r, loc[1]-r,loc[0]+r, loc[1]+r))
 
-			neighbors = list(lights_idx.intersection((loc[0]-r_lat, loc[1]-r_lon, loc[0]+r_lat, loc[1]+r_lon)))
+
+			#r_lat = 0.00010
+			#r_lon = 0.00010 / math.cos(math.radians(33))
+			#neighbors = list(lights_idx.intersection((loc[0]-r_lat, loc[1]-r_lon, loc[0]+r_lat, loc[1]+r_lon)))
 
 			jsongraph["nodes"].append(loc)
-			jsongraph["nodelabels"].append([len(neighbors)])
-
+			jsongraph["nodelabels"].append([0])
 
 		for edge in roadnetwork.edges:
 			jsongraph["edges"].append(edge)
+
+
+		for light_loc in list(lights_idx.intersection(region)):
+			r_lat = 0.00100
+			r_lon = 0.00100 / math.cos(math.radians(33))
+
+			best_node = None 
+			best_d = 10000 
+
+			loc = light_loc
+
+			for candidate_node in list(node_idx.intersection((loc[0]-r_lat, loc[1]-r_lon, loc[0]+r_lat, loc[1]+r_lon))):
+				d = gps_distance(jsongraph["nodes"][candidate_node], loc)
+
+				if d < best_d or best_node is None :
+					best_node = candidate_node
+					best_d = d 
+
+			if best_node is not None:
+				jsongraph["nodelabels"][best_node][0] = 1 
 
 
 		json.dump(jsongraph, open(path+"/graph.json","w"))
@@ -78,10 +109,6 @@ for ilat in range(10):
 		cv2.imwrite(path+"/sat_4096.png", img)
 
 		# draw the map 
-
-		cfg = json.load(open(path+"/config.json","r"))
-		region = cfg["region"]
-
 
 		for edge in jsongraph["edges"]:
 			loc0 = jsongraph["nodes"][edge[0]]
