@@ -8,6 +8,8 @@ import scipy
 import pickle 
 import math 
 import roadtagger_road_network
+from subprocess import Popen 
+from time import time, sleep 
 
 def get_image_coordinate(lat, lon, size, region):
 	x = int((region[2]-lat)/(region[2]-region[0])*size)
