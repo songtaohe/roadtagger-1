@@ -7,6 +7,7 @@ import scipy.misc
 import scipy 
 import pickle 
 import math 
+import roadtagger_road_network
 
 def get_image_coordinate(lat, lon, size, region):
 	x = int((region[2]-lat)/(region[2]-region[0])*size)
