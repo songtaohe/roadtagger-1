@@ -84,6 +84,8 @@ for ilat in range(10):
 			jsongraph["edges"].append(edge)
 
 
+		print("lights in region", len(list(lights_idx.intersection(region))))
+		
 		for light_loc in list(lights_idx.intersection(region)):
 			r_lat = 0.00100
 			r_lon = 0.00100 / math.cos(math.radians(33))
@@ -132,6 +134,13 @@ for ilat in range(10):
 				color = (0,255,0)
 
 			cv2.circle(img, (y0,x0), 5, color, -1)
+
+
+		for light_loc in list(lights_idx.intersection(region)):
+			loc0 = lights[light_loc]
+			x0,y0 = get_image_coordinate(loc0[0], loc0[1], 4096,region)
+			cv2.circle(img, (y0,x0), 3, (0,0,255), -1)
+
 
 
 		cv2.imwrite(path+"/graph_label_vis.png", img)
