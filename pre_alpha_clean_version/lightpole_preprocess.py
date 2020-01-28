@@ -89,7 +89,7 @@ for ilat in range(10):
 			best_node = None 
 			best_d = 10000 
 
-			loc = light_loc
+			loc = lights[light_loc]
 
 			for candidate_node in list(node_idx.intersection((loc[0]-r_lat, loc[1]-r_lon, loc[0]+r_lat, loc[1]+r_lon))):
 				d = gps_distance(jsongraph["nodes"][candidate_node], loc)
