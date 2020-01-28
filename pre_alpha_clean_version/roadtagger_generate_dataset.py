@@ -29,7 +29,7 @@ import helper_road_structure_topo as topo
 # - region [lat/lon]
 # - output folder
 # - (res) default is 0.25
-def generate_dataset(config, density = 0.00020):
+def generate_dataset(config, density = 0.00010):
 	output_folder = config["folder"]
 	region = config["region"]
 	img_size = config["size"]*2

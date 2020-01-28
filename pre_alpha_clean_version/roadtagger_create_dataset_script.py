@@ -53,6 +53,8 @@ for item in dataset_cfg:
             print("start a new process ",prefix, i, j)
             pool.append(Popen("python roadtagger_generate_dataset.py generate %s/region_%d_%d/config.json" % (prefix, i,j), shell=True))
 
+    continue
+    
     for p in pool:
         p.wait() 
 
