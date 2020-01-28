@@ -97,7 +97,7 @@ for ilat in range(10):
 			loc0 = items[0] 
 			x0,y0 = get_image_coordinate(loc0[0], loc0[1], 4096,region)
 			
-			if items[1] == 0:
+			if items[1][0] == 0:
 				color = (0,255,255)
 			else:
 				color = (0,255,0)
