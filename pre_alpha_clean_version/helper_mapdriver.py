@@ -40,7 +40,7 @@ def metersToLonLat(mx, my):
 
 def DownloadMap(lat,lon, zoom, outputname):
 
-    GOOGLE_MAP_API_KEY = "YOUR API KEY"
+    GOOGLE_MAP_API_KEY = "AIzaSyBEV_gkc4BjFR52LehNkM4rEeiMnTuApY0"
 
     filename = "staticmap?center="+("%.6f" % lat)+","+("%.6f" % lon)+"&maptype=satellite&zoom="+str(zoom)+"&scale=2&style=element:labels|visibility:off&size=640x640&key=" + GOOGLE_MAP_API_KEY
     filename_shell = "staticmap?center="+("%.6f" % lat)+","+("%.6f" % lon)+"&maptype=satellite&zoom="+str(zoom)+"&scale=2&style=element:labels%7Cvisibility:off&size=640x640&key=" + GOOGLE_MAP_API_KEY
