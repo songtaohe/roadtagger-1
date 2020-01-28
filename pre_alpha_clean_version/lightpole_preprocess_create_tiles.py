@@ -81,7 +81,7 @@ for ilat in range(10):
           
 
 for p in pool:
-    p.wait()
+	p.wait()
 
 
 json.dump(good_regions, open("good_regions_for_light.json","w"))
