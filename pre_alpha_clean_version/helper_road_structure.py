@@ -8,7 +8,7 @@ import cv2
 from PIL import Image
 import pickle
 import bintrees 
-from PathSimilarity import PathSimilarity
+from helper_path_similarity import PathSimilarity
 from rtree import index
 from scipy import interpolate
 import socket
