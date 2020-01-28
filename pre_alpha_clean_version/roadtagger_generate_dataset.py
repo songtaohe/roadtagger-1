@@ -283,7 +283,7 @@ def generate_per_node_image(config, input_sat = "sat_16384.png", output_name = "
 		r = 192 # 384
 		result = img[center-r:center+r, center-r: center+ r,:]
     
-		Image.fromarray(result).save(output_folder + "/"+output_name+"/"+"img_%d.png" % k)
+		Image.fromarray(result).save(output_folder + "/"+output_name+"/"+"img_%d.jpg" % k)
 
 
 
