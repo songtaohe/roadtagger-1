@@ -61,7 +61,8 @@ for ilat in range(10):
 		jsongraph["nodelabels"] = []
 
 		node_idx = index.Index()
-		
+
+		cc = 0
 		for nid in range(roadnetwork.node_num):
 			loc = roadnetwork.nid2loc[nid]
 			loc = [loc[0]/111111.0, loc[1]/111111.0]
@@ -77,6 +78,7 @@ for ilat in range(10):
 
 			jsongraph["nodes"].append(loc)
 			jsongraph["nodelabels"].append([0])
+			cc += 1
 
 		for edge in roadnetwork.edges:
 			jsongraph["edges"].append(edge)
