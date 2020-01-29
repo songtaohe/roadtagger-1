@@ -33,7 +33,7 @@ class RoadTaggerModel():
 		self.target_shape = target_shape 
 		self.target_dim = 0
 		for d in target_shape:
-			self.target_dim += d 
+			self.target_dim += 1
 
 		self.number_of_gnn_layer = number_of_gnn_layer 
 
