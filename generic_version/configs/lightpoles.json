@@ -1,6 +1,9 @@
 {
 	"target_shape" : [2],
-	"propagation_step": 4,
+	"propagation_step": 24,
+	"subgraph_batch": 8,
+	"subgraph_size": 128,
+	"subgraph_reload_steps": 200,
 	"cnn_model": "simple",
 	"gnn_model": "",
 	"model_save_folder":"model/",

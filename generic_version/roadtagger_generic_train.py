@@ -8,6 +8,7 @@ import random
 import tensorflow as tf 
 import math
 import code 
+from time import time, sleep 
 
 # example graph loader
 class myRoadNetwork():
@@ -89,12 +90,6 @@ class myRoadNetwork():
 				self.roadnetwork.targets[nid,i] = jsongraph["nodelabels"][nid][i]
 
 		self.roadnetwork.preload_img = None 
-			# self.preload_img = {}
-			# for nid in range(len(jsongraph["nodes"])):
-			# 	self.preload_img[nid] = scipy.ndimage.imread(tileFolder + "/tiles/img_%d.png" % nid).astype(np.float32)/255.0 
-
-		 # 	if nid % 100 == 0:
-			# 	print(nid)
 
 		self.roadnetwork.config = {}
 		self.roadnetwork.config["folder"] = tileFolder
@@ -110,29 +105,28 @@ if __name__ == "__main__":
 
 	training_networks = []
 
-	for folder in config["dataset_eval"]:
+	for folder in config["dataset_train"]:
 		print("loading... ", folder)
 		network = myRoadNetwork(folder + "/graph.json", folder, target_shape=target_shape)
 		training_networks.append(network)
 
 
 	preload_graph = None 
-	preload_graph_num = 2 # just for testing 
+	preload_graph_num = config["subgraph_batch"] # just for testing 
 	step = 0 
 	sloss = 0 
 	with tf.Session(config=tf.ConfigProto()) as sess:
 		model = RoadTaggerModel(sess, number_of_gnn_layer = config["propagation_step"], target_shape=target_shape)
 
+		t0 = time()
 		while True:
 			# sample preload graph 
-			if preload_graph is None or step % 200 == 0:
+			if preload_graph is None or step % config["subgraph_reload_steps"] == 0:
 				preload_graph = []
 
 				for i in range(preload_graph_num):
-					preload_graph.append(random.choice(training_networks).SampleSubRoadNetwork())
+					preload_graph.append(random.choice(training_networks).SampleSubRoadNetwork(config["subgraph_size"]))
 
-
-			
 
 			train_subgraph = random.choice(preload_graph)
 
@@ -150,10 +144,17 @@ if __name__ == "__main__":
 
 			if step % 100 == 0:
 				print("average loss ", sloss/100.0, "at step", step)
+				sloss = 0.0 
 
-			if step % 1000 == 0:
+			if step % 1000 == 0 or (step<1000 and step % 100 == 0):
+				print("save model to backup")
 				model.saveModel(config["model_save_folder"] + "/backup")
 
+				if step <= 1000:
+					print("training 100 iterations spent", time()-t0, "seconds")
+				else:
+					print("training 1000 iterations spent", time()-t0, "seconds")
+				t0 = time() 
 
 
 
