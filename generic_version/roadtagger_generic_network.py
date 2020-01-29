@@ -1312,9 +1312,14 @@ class SubRoadNetwork():
 				x0,y0 = get_image_coordinate(loc0[0], loc0[1], d, self.parentRoadNetowrk.region)
 				x1,y1 = get_image_coordinate(loc1[0], loc1[1], d, self.parentRoadNetowrk.region)
 
-				cv2.line(img, (y0,x0), (y1,x1), (0,255,255),2)
-				cv2.circle(img, (y0,x0), 3, (0,255,255), -1)
-				cv2.circle(img, (y1,x1), 3, (0,255,255), -1)
+				cv2.line(img, (y0,x0), (y1,x1), (128,128,128),2)
+				cv2.circle(img, (y0,x0), 3, (128,128,128), -1)
+				cv2.circle(img, (y1,x1), 3, (128,128,128), -1)
+
+
+		correct = 0 
+		inferred = 0 
+		total = 0 
 
 		for loc, items in self.parentRoadNetowrk.nodes.items():
 			nid = items[0]
@@ -1345,7 +1350,22 @@ class SubRoadNetwork():
 						cc += 1
 
 				if cc > 0 and local_maxma:
-					cv2.circle(img, (y0,x0), 5, (0,0,255), 2)
+					cv2.circle(img, (y0,x0), 3, (0,0,255), -1)
+
+					inferred += 1.0
+
+				if self.targets[nid,0] > 0.5:
+					cv2.circle(img, (y0,x0), 5, (255,0,0), 3)
+
+					total += 1.0
+
+				if self.targets[nid,0] > 0.5 and cc > 0 and local_maxma:
+					cv2.circle(img, (y0,x0), 4, (0,255,0), -1)
+
+					correct += 1.0
+
+
+		print(inferred, correct, total, "precision %.3f recall %.3f" % (correct/inferred, correct/total))
 
 		cv2.imwrite(output, img)
 		#Image.fromarray(img).save(output)

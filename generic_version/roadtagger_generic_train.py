@@ -21,6 +21,7 @@ if __name__ == "__main__":
 	for folder in config["dataset_train"]:
 		print("loading... ", folder)
 		network = myRoadNetworkLoader(folder + "/graph.json", folder, target_shape=target_shape)
+		network.annotation_filter_for_light_poles()
 		training_networks.append(network)
 
 
