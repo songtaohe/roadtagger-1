@@ -110,7 +110,7 @@ class myRoadNetworkLoader():
 		for nid in range(len(jsongraph["nodes"])):
 			loc = jsongraph["nodes"][nid]
 
-			k = (int(loc[0]*111111.0) / 100, int(loc[1]*111111.0) / 100)
+			k = (int(int(loc[0]*111111.0) / 100), int(int(loc[1]*111111.0) / 100))
 
 			if jsongraph["nodelabels"][nid][0] > 0.5:
 				hasdata[k] = True
@@ -118,7 +118,7 @@ class myRoadNetworkLoader():
 		for nid in range(len(jsongraph["nodes"])):
 			loc = jsongraph["nodes"][nid]
 
-			k = (int(loc[0]*111111.0) / 100, int(loc[1]*111111.0) / 100)
+			k = (int(int(loc[0]*111111.0) / 100), int(int(loc[1]*111111.0) / 100))
 			total += 1
 			if k not in hasdata: 
 				self.roadnetwork.annotation[nid]["remove"] = 1
