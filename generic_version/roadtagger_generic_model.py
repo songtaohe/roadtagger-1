@@ -36,7 +36,7 @@ class RoadTaggerModel():
 			self.target_dim += 1
 
 		print("Target Dim", self.target_dim)
-		
+
 
 		self.number_of_gnn_layer = number_of_gnn_layer 
 
@@ -632,7 +632,7 @@ class RoadTaggerModel():
 		
 		if self.gnn_type != "none":
 			self._target_unstacks = tf.unstack(self.target, axis = 1)
-			self._target_unstacks = [tf.reshape(x, shape=[-1,1]) for x in self._target_unstacks]
+			#self._target_unstacks = [tf.reshape(x, shape=[-1,1]) for x in self._target_unstacks]
 			
 
 			self._output_unstacks_whole_graph = tf.unstack(self._output_whole_graph, axis = 1)
@@ -652,7 +652,7 @@ class RoadTaggerModel():
 				_output_softmax = tf.nn.softmax(_output)
 
 				#_target = tf.concat(self._target_unstacks[base:base+d], axis = 1)
-				_target = tf.reshape(self._target_unstacks[base], (-1))
+				_target = self._target_unstacks[base]
 
 				loss = tf.reduce_mean(tf.nn.sparse_softmax_cross_entropy_with_logits(labels = _target, logits = self._output))
 				self.loss += loss 
