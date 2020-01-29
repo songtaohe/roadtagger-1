@@ -1362,10 +1362,22 @@ class SubRoadNetwork():
 
 					total += 1.0
 
-				if self.targets[nid,0] > 0.5 and cc > 0 and local_maxma:
-					cv2.circle(img, (y0,x0), 4, (0,255,0), -1)
+				if cc > 0 and local_maxma:
+					haslight = False
 
-					correct += 1.0
+					if self.targets[nid,0] > 0.5:
+						haslight = True 
+					else:
+						for nei_node in self.parentRoadNetowrk.node_degree[items[0]]:
+							if nei_node in self.node_mapping:
+								nnid = self.node_mapping[nei_node]
+								if nnid < self.nonIntersectionNodeNum:
+									if self.targets[nnid,0] > 0.5:
+										haslight = True 
+										break 
+					if haslight:
+						cv2.circle(img, (y0,x0), 4, (0,255,0), -1)
+						correct += 1.0
 
 
 		print(inferred, correct, total, "precision %.3f recall %.3f" % (correct/inferred, correct/total))
