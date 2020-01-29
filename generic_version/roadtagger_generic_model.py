@@ -36,7 +36,7 @@ class RoadTaggerModel():
 			self.target_dim += d 
 
 		self.number_of_gnn_layer = number_of_gnn_layer 
-		
+
 		self.Build(image_size = 384)
 
 		self.sess.run(tf.global_variables_initializer())
@@ -630,6 +630,7 @@ class RoadTaggerModel():
 		if self.gnn_type != "none":
 			self._output_unstacks_whole_graph = tf.unstack(self._output_whole_graph, axis = 1)
 			self._target_unstacks = tf.unstack(self.target, axis = 1)
+			self._target_unstacks = [tf.reshape(x, shape=[-1,1]) for x in self._target_unstacks]
 			self._output_unstacks_whole_graph_reshape = []
 			
 
