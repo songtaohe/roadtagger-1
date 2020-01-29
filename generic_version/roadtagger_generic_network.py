@@ -1245,7 +1245,7 @@ class SubRoadNetwork():
 		return self.homogeneous_loss_mask
 
 
-	def image_augmentation(self, img, flag = True ):
+	def image_augmentation(self, img, flag = False ):
 
 		img = np.copy(img)
 
