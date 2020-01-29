@@ -25,7 +25,9 @@ if __name__ == "__main__":
 
 
 	for gid in range(len(training_networks)):
-		input_region = training_networks[gid].SampleSubRoadNetwork(graph_size = training_networks[gid].graphsize(), reseed=True)
+		#graph_size = training_networks[gid].graphsize()
+		graph_size = 1024
+		input_region = training_networks[gid].SampleSubRoadNetwork(graph_size = graph_size, reseed=True)
 
 		# stage 1 
 		node_feature = np.zeros((input_region.nonIntersectionNodeNum, 62))

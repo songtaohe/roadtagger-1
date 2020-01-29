@@ -731,6 +731,10 @@ class SubRoadNetwork():
 						
 							print(nid)
 							print(output_folder + "/"+tiles_name+"/img_%d.png" % nid)
+				
+						c = c + 1
+						if c % 100 == 0 and self.nonIntersectionNodeNum> 512:
+							print(c)
 				# else:
 				# 	v = self.annotation[nid]
 				# 	img_size = 16384
