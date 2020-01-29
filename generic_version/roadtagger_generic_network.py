@@ -17,7 +17,7 @@ import os
 
 from rtree import index
 
-import opengm 
+#import opengm 
 
 #from abc import ABC, abstractmethod 
 
