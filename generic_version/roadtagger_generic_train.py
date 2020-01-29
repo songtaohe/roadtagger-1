@@ -83,7 +83,7 @@ class myRoadNetwork():
 
 		for nid in range(len(jsongraph["nodes"])):
 			for i in range(dim):
-				self.targets[nid,i] = jsongraph["nodelabels"][i]
+				self.targets[nid,i] = jsongraph["nodelabels"][nid][i]
 
 		self.preload_img = None 
 			# self.preload_img = {}
