@@ -18,7 +18,7 @@ image_size = 384
 
 
 class RoadTaggerModel():
-	def __init__(self, sess, cnn_type="simple2", gnn_type="Generic", loss_func = "L2", number_of_gnn_layer= 4, reuse = True, stage=None, homogeneous_loss_factor = 1.0, target_shape = [], graphs_num = 1):
+	def __init__(self, sess, cnn_type="simple2", gnn_type="Generic", loss_func = "L2", number_of_gnn_layer= 4, reuse = True, stage=None, homogeneous_loss_factor = 0.0, target_shape = [], graphs_num = 1):
 
 		self.stage = stage 
 		self.use_batchnorm = True

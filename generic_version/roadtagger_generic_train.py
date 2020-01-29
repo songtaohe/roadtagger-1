@@ -96,7 +96,7 @@ class myRoadNetwork():
 		self.config = {}
 		self.config["folder"] = tileFolder
 
-	def SampleSubRoadNetwork(graph_size = 256):
+	def SampleSubRoadNetwork(self,graph_size = 256):
 		return SubRoadNetwork(self.roadnetwork, graph_size = graph_size, search_mode = random.randint(0,3))
 
 
