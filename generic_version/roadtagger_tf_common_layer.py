@@ -151,7 +151,7 @@ def create_gcn_layer_GRU_generic_one_fc(name, input_tensor, graph_structures, in
 		tensor_list = []
 
 
-		for i in xrange(graph_num):
+		for i in range(graph_num):
 			weights.append(glorot([input_dim, input_dim], name='weights_fc'+str(i)))
 			bias.append(zeros([input_dim], name = 'bias'+str(i)))
 
