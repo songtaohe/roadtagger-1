@@ -1142,7 +1142,7 @@ class SubRoadNetwork():
 		self.tf_spares_graph_structure_fully_connected = tf.SparseTensorValue(self.spares_graph_structure_fully_connected['indices'], self.spares_graph_structure_fully_connected['values'], self.spares_graph_structure_fully_connected['shape']) 
 		
 
- 		pass
+		pass
 
 
 	def GetGraphStructure(self):
