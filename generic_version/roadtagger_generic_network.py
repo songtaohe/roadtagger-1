@@ -1312,9 +1312,9 @@ class SubRoadNetwork():
 				x0,y0 = get_image_coordinate(loc0[0], loc0[1], d, self.parentRoadNetowrk.region)
 				x1,y1 = get_image_coordinate(loc1[0], loc1[1], d, self.parentRoadNetowrk.region)
 
-				cv2.line(img, (y0,x0), (y1,x1), (128,128,128),2)
-				cv2.circle(img, (y0,x0), 3, (128,128,128), -1)
-				cv2.circle(img, (y1,x1), 3, (128,128,128), -1)
+				cv2.line(img, (y0,x0), (y1,x1), (128,255,255),2)
+				cv2.circle(img, (y0,x0), 3, (128,255,255), -1)
+				cv2.circle(img, (y1,x1), 3, (128,255,255), -1)
 
 
 		correct = 0 
@@ -1328,14 +1328,14 @@ class SubRoadNetwork():
 
 				if self.nonIntersectionNodeNum <= nid:
 					continue
-					
+
 				x0,y0 = get_image_coordinate(loc[0], loc[1], 4096, self.parentRoadNetowrk.region)
 				
 				value = int(result[nid,1]*255) # from 0 to 1 
 
 				color = (0,value,1-value)
 
-				cv2.circle(img, (y0,x0), 3, color, -1)
+				#cv2.circle(img, (y0,x0), 3, color, -1)
 
 				local_value = result[nid,1]
 
@@ -1353,12 +1353,12 @@ class SubRoadNetwork():
 						cc += 1
 
 				if cc > 0 and local_maxma:
-					cv2.circle(img, (y0,x0), 3, (0,0,255), -1)
+					cv2.circle(img, (y0,x0), 4, (0,0,255), -1)
 
 					inferred += 1.0
 
 				if self.targets[nid,0] > 0.5:
-					cv2.circle(img, (y0,x0), 5, (255,0,0), 3)
+					cv2.circle(img, (y0,x0), 5, (255,0,0), 2)
 
 					total += 1.0
 
