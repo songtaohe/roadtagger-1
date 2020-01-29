@@ -35,6 +35,9 @@ class RoadTaggerModel():
 		for d in target_shape:
 			self.target_dim += 1
 
+		print("Target Dim", self.target_dim)
+		
+
 		self.number_of_gnn_layer = number_of_gnn_layer 
 
 		self.Build(image_size = 384)
