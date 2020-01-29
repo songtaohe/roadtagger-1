@@ -131,20 +131,19 @@ if __name__ == "__main__":
 					preload_graph.append(random.choice(training_networks).SampleSubRoadNetwork())
 
 
-			console = code.InteractiveConsole(locals())
-			console.interact()
-
-			exit()
+			
 
 			train_subgraph = random.choice(preload_graph)
-
-
-
 
 			items = model.Train(train_subgraph, train_op = model.train_op, learning_rate=0.0001)
 
 			#if step % 10 == 0:
 			print(step, items[0])
+
+			console = code.InteractiveConsole(locals())
+			console.interact()
+
+			# exit()
 
 			step += 1
 
