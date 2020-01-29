@@ -17,7 +17,7 @@ class myRoadNetwork():
 		for nid in range(len(jsongraph["nodes"])):
 			loc = jsongraph["nodes"][nid]
 			loc = (loc[0],loc[1])
-			
+
 			self.roadnetwork.nodes[loc] = [nid, []]
 			self.roadnetwork.nid2loc[nid] = loc 
 			self.roadnetwork.node_num += 1 
@@ -32,6 +32,7 @@ class myRoadNetwork():
 
 		for nid in range(len(jsongraph["nodes"])):
 			loc = jsongraph["nodes"][nid]
+			self.roadnetwork.annotation[nid] = {}
 			self.roadnetwork.annotation[nid]["degree"] = len(self.roadnetwork.node_degree[nid])
 			self.roadnetwork.annotation[nid]["remove"] = 0
 			
