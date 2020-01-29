@@ -647,19 +647,21 @@ class RoadTaggerModel():
 			self.losses = []
 			self.loss = 0 
 			base = 0 
+			cc = 0 
 			for d in self.target_shape:
 				_output = tf.concat(self._output_unstacks_whole_graph_reshape[base:base+d], axis = 1)
 				_output_softmax = tf.nn.softmax(_output)
 
 				#_target = tf.concat(self._target_unstacks[base:base+d], axis = 1)
-				_target = self._target_unstacks[base]
+				_target = self._target_unstacks[cc]
 
-				loss = tf.reduce_mean(tf.nn.sparse_softmax_cross_entropy_with_logits(labels = _target, logits = self._output))
+				loss = tf.reduce_mean(tf.multiply(self.global_loss_mask, tf.nn.sparse_softmax_cross_entropy_with_logits(labels = _target, logits = self._output)))
 				self.loss += loss 
 
 				self._output_softmax_whole_graph.append(_output_softmax)
 				self.losses.append(loss)
-				base = base + 1
+				base = base + d
+				cc = cc + 1
 
 
 		if self.gnn_type != "none":
@@ -756,7 +758,6 @@ class RoadTaggerModel():
 	def Evaluate(self, roadNetwork, batch_size = None):
 		r,m = roadNetwork.GetNodeDropoutMask(False, batch_size)
 
-
 		feed_dict = {
 			self.per_node_raw_inputs: roadNetwork.GetImages(batch_size),
 			self.target : roadNetwork.GetTarget(batch_size),
@@ -778,7 +779,7 @@ class RoadTaggerModel():
 			i = i + 1
 
 
-		return self.sess.run([self.loss, self._output_lane_number, self._output_left_park, self._output_left_bike, self._output_right_bike, self._output_right_park, self._output_roadtype, self._output_unstacks_reshape, self.homogeneous_loss], feed_dict = feed_dict)
+		return self.sess.run([self.loss, self._output_softmax_whole_graph[0], self._output_lane_number, self._output_left_park, self._output_left_bike, self._output_right_bike, self._output_right_park, self._output_roadtype, self._output_unstacks_reshape, self.homogeneous_loss], feed_dict = feed_dict)
 
 
 	def GetIntermediateNodeFeature(self, roadNetwork,st,ed, batch_size = None):
