@@ -724,7 +724,7 @@ class SubRoadNetwork():
 						#print(output_folder + "/"+tiles_name)
 						#exit()
 						try:
-							img = scipy.ndimage.imread(output_folder + "/"+tiles_name+"/img_%d.png" % nid).astype(np.float32)/255.0 
+							img = scipy.ndimage.imread(output_folder + "/"+tiles_name+"/img_%d.jpg" % nid).astype(np.float32)/255.0 
 						except:
 
 							img = scipy.ndimage.imread("/data/songtao/DeepRoadMateinfo/"+ self.config["folder"] + "/"+tiles_name+"/img_%d.png" % nid).astype(np.float32)/255.0 
