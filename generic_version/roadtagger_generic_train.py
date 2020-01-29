@@ -117,7 +117,7 @@ if __name__ == "__main__":
 	preload_graph_num = 2 # just for testing 
 	step = 0 
 	with tf.Session(config=tf.ConfigProto()) as sess:
-		model = RoadTaggerModel(sess, number_of_gnn_layer = config["propagation_step"])
+		model = RoadTaggerModel(sess, number_of_gnn_layer = config["propagation_step"], target_shape=target_shape)
 
 		# sample preload graph 
 		if preload_graph is None or step % 200 == 0:
