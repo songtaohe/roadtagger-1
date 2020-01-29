@@ -17,12 +17,20 @@ if __name__ == "__main__":
 	target_shape = config["target_shape"]
 
 	training_networks = []
+	#validation_networks = []
+
 
 	for folder in config["dataset_train"]:
 		print("loading... ", folder)
 		network = myRoadNetworkLoader(folder + "/graph.json", folder, target_shape=target_shape)
 		network.annotation_filter_for_light_poles()
 		training_networks.append(network)
+
+	# for folder in config["dataset_eval"]:
+	# 	print("loading... ", folder)
+	# 	network = myRoadNetworkLoader(folder + "/graph.json", folder, target_shape=target_shape)
+	# 	network.annotation_filter_for_light_poles()
+	# 	validation_networks.append(network)
 
 
 	preload_graph = None 
@@ -72,6 +80,8 @@ if __name__ == "__main__":
 				t0 = time() 
 
 
+			if step in config["learningrate_decay_at_step"]:
+				lr = lr * config["learningrate_decay"]
 
 
 

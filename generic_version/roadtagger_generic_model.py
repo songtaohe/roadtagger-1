@@ -724,7 +724,6 @@ class RoadTaggerModel():
 
 		self.merged_summary = tf.summary.merge_all()
 
-	
 		pass
 
 

@@ -1318,6 +1318,7 @@ class SubRoadNetwork():
 
 
 		correct = 0 
+		correct1hop = 0 
 		inferred = 0 
 		total = 0 
 
@@ -1367,6 +1368,10 @@ class SubRoadNetwork():
 
 					if self.targets[nid,0] > 0.5:
 						haslight = True 
+						correct += 1.0 
+						correct1hop += 1.0
+						cv2.circle(img, (y0,x0), 4, (0,255,0), -1)
+						
 					else:
 						for nei_node in self.parentRoadNetowrk.node_degree[items[0]]:
 							if nei_node in self.node_mapping:
@@ -1375,12 +1380,12 @@ class SubRoadNetwork():
 									if self.targets[nnid,0] > 0.5:
 										haslight = True 
 										break 
-					if haslight:
-						cv2.circle(img, (y0,x0), 4, (0,255,0), -1)
-						correct += 1.0
+						if haslight:
+							cv2.circle(img, (y0,x0), 4, (0,128,0), -1)
+							correct1hop += 1.0
 
-
-		print(inferred, correct, total, "precision %.3f recall %.3f" % (correct/inferred, correct/total))
+		print("exact  ",inferred, correct, total, "precision %.3f recall %.3f" % (correct/inferred, correct/total))
+		print("one-hop",inferred, correct1hop, total, "precision %.3f recall %.3f" % (correct1hop/inferred, correct1hop/total))
 
 		cv2.imwrite(output, img)
 		#Image.fromarray(img).save(output)
