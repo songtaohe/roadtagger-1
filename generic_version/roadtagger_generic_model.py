@@ -32,8 +32,11 @@ class RoadTaggerModel():
 		self.homogeneous_loss_factor = homogeneous_loss_factor
 		self.target_shape = target_shape 
 		self.target_dim = 0
+		self.output_dim = 0 
+
 		for d in target_shape:
 			self.target_dim += 1
+			self.output_dim += d 
 
 		print("Target Dim", self.target_dim)
 
@@ -585,7 +588,7 @@ class RoadTaggerModel():
 			print("GNN type", self.gnn_type)
 
 			if self.gnn_type == "Generic":
-				self._output = self._buildGCNRoadGeneric(self.node_feature, self.graph_structures, self.dropout, target_dim = self.target_dim)
+				self._output = self._buildGCNRoadGeneric(self.node_feature, self.graph_structures, self.dropout, target_dim = self.output_dim)
 			else:
 				print("TODO", self.gnn_type)
 				exit() 
