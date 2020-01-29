@@ -818,7 +818,7 @@ class RoadTaggerModel():
 			feed_dict[self.graph_structures[i]] = graph 
 			i = i + 1
 
-		return self.sess.run([self.loss, self._output_lane_number, self._output_left_park, self._output_left_bike, self._output_right_bike, self._output_right_park, self._output_roadtype, self._output_unstacks_reshape, self.homogeneous_loss], feed_dict = feed_dict)
+		return self.sess.run([self.loss, self.softmax_output_concat], feed_dict = feed_dict)
 
 
 	def saveModel(self, path):
@@ -826,8 +826,6 @@ class RoadTaggerModel():
 
 	def saveModelBest(self, saver, path):
 		saver.save(self.sess, path)
-
-
 
 	def restoreModel(self, path):
 		self.saver.restore(self.sess, path)

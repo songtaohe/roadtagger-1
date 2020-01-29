@@ -1294,6 +1294,40 @@ class SubRoadNetwork():
 	
 		Image.fromarray(img).save(output)
 
+	def VisualizeResult(self, result, output = "default.png"):
+		img = cv2.imread(self.config["folder"]+"/sat_4096.png")
+
+		for edge in self.parentRoadNetowrk.edges:
+			if edge[0] in self.subGraphNoadList and edge[1] in self.subGraphNoadList:
+				loc0 = self.parentRoadNetowrk.nid2loc[edge[0]]
+				loc1 = self.parentRoadNetowrk.nid2loc[edge[1]]
+
+				d = 4096
+
+				x0,y0 = get_image_coordinate(loc0[0], loc0[1], d, self.parentRoadNetowrk.region)
+				x1,y1 = get_image_coordinate(loc1[0], loc1[1], d, self.parentRoadNetowrk.region)
+
+				cv2.line(img, (y0,x0), (y1,x1), (0,255,255),2)
+				cv2.circle(img, (y0,x0), 3, (0,255,255), -1)
+				cv2.circle(img, (y1,x1), 3, (0,255,255), -1)
+
+		for loc, items in self.parentRoadNetowrk.nodes.items():
+			nid = items[0]
+			if nid in self.node_mapping:
+				nid = self.node_mapping[nid]
+
+				x0,y0 = get_image_coordinate(loc[0], loc[1], 4096, self.parentRoadNetowrk.region)
+				
+				value = int(result[nid,1]*255) # from 0 to 1 
+
+				color = (0,value,1-value)
+
+				cv2.circle(img, (y0,x0), 3, color, -1)
+
+
+	
+		Image.fromarray(img).save(output)
+
 	def GetGraphStructures(self):
 		return [self.tf_spares_graph_structure_fully_connected]
 	
