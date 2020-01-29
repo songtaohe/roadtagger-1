@@ -6,6 +6,7 @@ import scipy.ndimage
 from roadtagger_generic_model import RoadTaggerModel
 import random
 import tensorflow as tf 
+import math
 
 # example graph loader
 class myRoadNetwork():
@@ -48,7 +49,7 @@ class myRoadNetwork():
 				loc2 = self.roadnetwork.nid2loc[self.roadnetwork.node_degree[nid][0]]
 
 				dlat = loc1[0] - loc2[0]
-				dlon = (loc1[1] - loc2[1]) * math.cos(math.radians(loc1[0]/111111.0))
+				dlon = (loc1[1] - loc2[1]) * math.cos(math.radians(loc1[0]))
 
 				l = np.sqrt(dlat*dlat + dlon * dlon)
 
@@ -63,7 +64,7 @@ class myRoadNetwork():
 				loc2 = self.roadnetwork.nid2loc[self.roadnetwork.node_degree[nid][0]]
 
 				dlat = loc1[0] - loc2[0]
-				dlon = (loc1[1] - loc2[1]) * math.cos(math.radians(loc1[0]/111111.0))
+				dlon = (loc1[1] - loc2[1]) * math.cos(math.radians(loc1[0]))
 
 				l = np.sqrt(dlat*dlat + dlon * dlon)
 
