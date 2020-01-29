@@ -27,7 +27,7 @@ if __name__ == "__main__":
 
 	for gid in range(len(training_networks)):
 		#graph_size = training_networks[gid].graphsize()
-		graph_size = 1024
+		graph_size = 2048
 		input_region = training_networks[gid].SampleSubRoadNetwork(graph_size = graph_size, reseed=True)
 
 		# stage 1 

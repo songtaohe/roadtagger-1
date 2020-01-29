@@ -97,11 +97,15 @@ class myRoadNetworkLoader():
 		self.roadnetwork.config = {}
 		self.roadnetwork.config["folder"] = tileFolder
 
+		self.jsongraph = jsongraph
+
 	def annotation_filter_for_light_poles(self):
 		hasdata = {}
 
 		total = 0 
 		remove = 0 
+
+		jsongraph = self.jsongraph
 
 		for nid in range(len(jsongraph["nodes"])):
 			loc = jsongraph["nodes"][nid]
@@ -122,7 +126,7 @@ class myRoadNetworkLoader():
 
 		print("remove %d nodes from %d nodes" % (remove, total))
 
-		
+
 
 	def graphsize(self):
 		return len(self.roadnetwork.annotation.keys())
