@@ -721,6 +721,7 @@ class SubRoadNetwork():
 						img = self.parentRoadNetowrk.preload_img[nid]
 					else:
 						print("Error! No preloaded images")
+						print(output_folder + "/"+tiles_name)
 						exit()
 						try:
 							img = scipy.ndimage.imread(output_folder + "/"+tiles_name+"/img_%d.png" % nid).astype(np.float32)/255.0 
