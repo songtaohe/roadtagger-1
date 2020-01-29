@@ -469,7 +469,7 @@ class SubRoadNetwork():
 		self.parentRoadNetowrk = parentRoadNetowrk
 		self.annotation = parentRoadNetowrk.annotation
 		self.config = parentRoadNetowrk.config 
-		
+		self.target_shape = parentRoadNetowrk.target_shape
 		self.train_cnn_only = train_cnn_only
 		self.train_cnn_batch = train_cnn_batch
 
