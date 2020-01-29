@@ -29,7 +29,7 @@ class RoadTaggerModel():
 		self.GRU = True
 		self.reuse = reuse 
 		self.graphs_num = graphs_num 
-
+		self.homogeneous_loss_factor = homogeneous_loss_factor
 		self.target_shape = target_shape 
 		self.target_dim = 0
 		for d in target_shape:
