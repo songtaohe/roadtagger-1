@@ -1,6 +1,6 @@
 {
 	"target_shape" : [2],
-	"propagation_step": 32,
+	"propagation_step": 4,
 	"cnn_model": "simple",
 	"gnn_model": "",
 	"model_save_folder":"model/",

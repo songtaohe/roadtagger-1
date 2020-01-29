@@ -34,7 +34,7 @@ class myRoadNetwork():
 		for nid in range(len(jsongraph["nodes"])):
 			loc = jsongraph["nodes"][nid]
 			loc = (loc[0],loc[1])
-			
+
 			self.roadnetwork.annotation[nid] = {}
 			self.roadnetwork.annotation[nid]["degree"] = len(self.roadnetwork.node_degree[nid])
 			self.roadnetwork.annotation[nid]["remove"] = 0
@@ -121,26 +121,27 @@ if __name__ == "__main__":
 	with tf.Session(config=tf.ConfigProto()) as sess:
 		model = RoadTaggerModel(sess, number_of_gnn_layer = config["propagation_step"], target_shape=target_shape)
 
-		# sample preload graph 
-		if preload_graph is None or step % 200 == 0:
-			preload_graph = []
+		while True:
+			# sample preload graph 
+			if preload_graph is None or step % 200 == 0:
+				preload_graph = []
 
-			for i in range(preload_graph_num):
-				preload_graph.append(random.choice(training_networks).SampleSubRoadNetwork())
-
-
-		train_subgraph = random.choice(preload_graph)
-
-		items = model.Train(train_subgraph, train_op = model.train_op)
-
-		if step % 10 == 0:
-			print(step, items[0])
-
-		step += 1
+				for i in range(preload_graph_num):
+					preload_graph.append(random.choice(training_networks).SampleSubRoadNetwork())
 
 
-		if step % 1000 == 0:
-			model.saveModel(config["model_save_folder"] + "/backup")
+			train_subgraph = random.choice(preload_graph)
+
+			items = model.Train(train_subgraph, train_op = model.train_op)
+
+			if step % 10 == 0:
+				print(step, items[0])
+
+			step += 1
+
+
+			if step % 1000 == 0:
+				model.saveModel(config["model_save_folder"] + "/backup")
 
 
 
