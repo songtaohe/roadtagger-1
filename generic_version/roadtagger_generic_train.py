@@ -35,56 +35,56 @@ class myRoadNetwork():
 			
 
 			heading_vector_lat = 0 
-	 		heading_vector_lon = 0
+				heading_vector_lon = 0
 
-	 		if len(self.roadnetwork.node_degree[nid]) > 2:
-	 			heading_vector_lat = 0 
-	 			heading_vector_lon = 0
-	 		elif len(self.roadnetwork.node_degree[nid]) == 1:
-	 			loc1 = self.roadnetwork.nid2loc[nid]
-	 			loc2 = self.roadnetwork.nid2loc[self.roadnetwork.node_degree[nid][0]]
+				if len(self.roadnetwork.node_degree[nid]) > 2:
+					heading_vector_lat = 0 
+					heading_vector_lon = 0
+				elif len(self.roadnetwork.node_degree[nid]) == 1:
+					loc1 = self.roadnetwork.nid2loc[nid]
+					loc2 = self.roadnetwork.nid2loc[self.roadnetwork.node_degree[nid][0]]
 
-	 			dlat = loc1[0] - loc2[0]
-	 			dlon = (loc1[1] - loc2[1]) * math.cos(math.radians(loc1[0]/111111.0))
+					dlat = loc1[0] - loc2[0]
+					dlon = (loc1[1] - loc2[1]) * math.cos(math.radians(loc1[0]/111111.0))
 
-	 			l = np.sqrt(dlat*dlat + dlon * dlon)
+					l = np.sqrt(dlat*dlat + dlon * dlon)
 
-	 			dlat /= l
-	 			dlon /= l 
+					dlat /= l
+					dlon /= l 
 
-	 			heading_vector_lat = dlat 
-	 			heading_vector_lon = dlon 
+					heading_vector_lat = dlat 
+					heading_vector_lon = dlon 
 
-	 		elif len(self.roadnetwork.node_degree[nid]) == 2:
-	 			loc1 = self.roadnetwork.nid2loc[self.roadnetwork.node_degree[nid][1]]
-	 			loc2 = self.roadnetwork.nid2loc[self.roadnetwork.node_degree[nid][0]]
+				elif len(self.roadnetwork.node_degree[nid]) == 2:
+					loc1 = self.roadnetwork.nid2loc[self.roadnetwork.node_degree[nid][1]]
+					loc2 = self.roadnetwork.nid2loc[self.roadnetwork.node_degree[nid][0]]
 
-	 			dlat = loc1[0] - loc2[0]
-	 			dlon = (loc1[1] - loc2[1]) * math.cos(math.radians(loc1[0]/111111.0))
+					dlat = loc1[0] - loc2[0]
+					dlon = (loc1[1] - loc2[1]) * math.cos(math.radians(loc1[0]/111111.0))
 
-	 			l = np.sqrt(dlat*dlat + dlon * dlon)
+					l = np.sqrt(dlat*dlat + dlon * dlon)
 
-	 			dlat /= l
-	 			dlon /= l 
+					dlat /= l
+					dlon /= l 
 
-	 			heading_vector_lat = dlat 
-	 			heading_vector_lon = dlon 
+					heading_vector_lat = dlat 
+					heading_vector_lon = dlon 
 
-	 		self.roadnetwork.annotation[nid]["heading_vector"] = [heading_vector_lat, heading_vector_lon]
+				self.roadnetwork.annotation[nid]["heading_vector"] = [heading_vector_lat, heading_vector_lon]
 
-	 	dim = len(target_shape)
+			dim = len(target_shape)
 
-	 	self.targets = np.zeros((len(jsongraph["nodes"]), len(target_shape)), dtype=np.int32)
-	 	self.mask = np.ones((len(jsongraph["nodes"])), dtype=np.float32)
+			self.targets = np.zeros((len(jsongraph["nodes"]), len(target_shape)), dtype=np.int32)
+			self.mask = np.ones((len(jsongraph["nodes"])), dtype=np.float32)
 
-	 	for nid in range(len(jsongraph["nodes"])):
-	 		for i in range(dim):
-	 			self.targets[nid,i] = jsongraph["nodelabels"][i]
+			for nid in range(len(jsongraph["nodes"])):
+				for i in range(dim):
+					self.targets[nid,i] = jsongraph["nodelabels"][i]
 
-	 	self.preload_img = None 
-	 	# self.preload_img = {}
-	 	# for nid in range(len(jsongraph["nodes"])):
-	 	# 	self.preload_img[nid] = scipy.ndimage.imread(tileFolder + "/tiles/img_%d.png" % nid).astype(np.float32)/255.0 
+			self.preload_img = None 
+			# self.preload_img = {}
+			# for nid in range(len(jsongraph["nodes"])):
+			# 	self.preload_img[nid] = scipy.ndimage.imread(tileFolder + "/tiles/img_%d.png" % nid).astype(np.float32)/255.0 
 
 		 # 	if nid % 100 == 0:
 			# 	print(nid)
