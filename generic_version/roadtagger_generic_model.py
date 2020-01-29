@@ -753,7 +753,7 @@ class RoadTaggerModel():
 		if train_op is None:
 			train_op = self.train_op
 
-		return self.sess.run([self.loss,  train_op, self.homogeneous_loss], feed_dict = feed_dict)
+		return self.sess.run([self.loss,  train_op, self.homogeneous_loss, self.softmax_output_concat, self._output_whole_graph], feed_dict = feed_dict)
 
 	def Evaluate(self, roadNetwork, batch_size = None):
 		r,m = roadNetwork.GetNodeDropoutMask(False, batch_size)
@@ -779,7 +779,7 @@ class RoadTaggerModel():
 			i = i + 1
 
 
-		return self.sess.run([self.loss, self._output_softmax_whole_graph[0], self._output_lane_number, self._output_left_park, self._output_left_bike, self._output_right_bike, self._output_right_park, self._output_roadtype, self._output_unstacks_reshape, self.homogeneous_loss], feed_dict = feed_dict)
+		return self.sess.run([self.loss, self._output_lane_number, self._output_left_park, self._output_left_bike, self._output_right_bike, self._output_right_park, self._output_roadtype, self._output_unstacks_reshape, self.homogeneous_loss], feed_dict = feed_dict)
 
 
 	def GetIntermediateNodeFeature(self, roadNetwork,st,ed, batch_size = None):
