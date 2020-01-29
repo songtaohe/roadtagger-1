@@ -69,12 +69,12 @@ if __name__ == "__main__":
 				print("average loss ", sloss/200.0, "at step", step)
 				sloss = 0.0 
 
-			if step % 1000 == 0 or (step<1000 and step % 100 == 0):
+			if step % 1000 == 0 or (step<1000 and step % 200 == 0):
 				print("save model to backup")
 				model.saveModel(config["model_save_folder"] + "/backup")
 
 				if step <= 1000:
-					print("training 100 iterations spent", time()-t0, "seconds")
+					print("training 200 iterations spent", time()-t0, "seconds")
 				else:
 					print("training 1000 iterations spent", time()-t0, "seconds")
 				t0 = time() 

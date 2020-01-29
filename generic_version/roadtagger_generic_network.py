@@ -1313,8 +1313,8 @@ class SubRoadNetwork():
 				x1,y1 = get_image_coordinate(loc1[0], loc1[1], d, self.parentRoadNetowrk.region)
 
 				cv2.line(img, (y0,x0), (y1,x1), (128,255,255),2)
-				cv2.circle(img, (y0,x0), 3, (128,255,255), -1)
-				cv2.circle(img, (y1,x1), 3, (128,255,255), -1)
+				cv2.circle(img, (y0,x0), 4, (128,255,255), -1)
+				cv2.circle(img, (y1,x1), 4, (128,255,255), -1)
 
 
 		correct = 0 

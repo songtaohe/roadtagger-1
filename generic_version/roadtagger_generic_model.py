@@ -90,7 +90,7 @@ class RoadTaggerModel():
 
 	# simple2 11+3 layer 
 	def _buildCNN2(self, raw_inputs, dropout = None, feature_size=126, encoder_dropout = None, is_training = True,  batchnorm=False):
-		conv1, _, _ = common.create_conv_layer('cnn_l1', raw_inputs, 3, 16, kx = 5, ky = 5, stride_x = 2, stride_y = 2,is_training = is_training, batchnorm = batchnorm)
+		conv1, _, _ = common.create_conv_layer('cnn_l1', raw_inputs, 3, 16, kx = 5, ky = 5, stride_x = 2, stride_y = 2,is_training = is_training, batchnorm = False)
 		conv2, _, _ = common.create_conv_layer('cnn_l2', conv1, 16, 16, kx = 3, ky = 3, stride_x = 1, stride_y = 1,is_training = is_training, batchnorm = batchnorm)
 		conv3, _, _ = common.create_conv_layer('cnn_l3', conv2, 16, 32, kx = 3, ky = 3, stride_x = 2, stride_y = 2,is_training = is_training, batchnorm = batchnorm)
 		conv4, _, _ = common.create_conv_layer('cnn_l4', conv3, 32, 32, kx = 3, ky = 3, stride_x = 1, stride_y = 1,is_training = is_training, batchnorm = batchnorm)
@@ -103,7 +103,7 @@ class RoadTaggerModel():
 		conv9, _, _ = common.create_conv_layer('cnn_l9', conv8, 128, 128, kx = 3, ky = 3, stride_x = 2, stride_y = 2,is_training = is_training, batchnorm = batchnorm) # 12*12*128 
 		
 		conv10, _, _ = common.create_conv_layer('cnn_l10', conv9, 128, 128, kx = 3, ky = 3, stride_x = 1, stride_y = 1,is_training = is_training, batchnorm = batchnorm)
-		conv11, _, _ = common.create_conv_layer('cnn_l11', conv10, 128, 128, kx = 3, ky = 3, stride_x = 2, stride_y = 2,is_training = is_training, batchnorm = batchnorm) # 6*6*128 
+		conv11, _, _ = common.create_conv_layer('cnn_l11', conv10, 128, 128, kx = 3, ky = 3, stride_x = 2, stride_y = 2,is_training = is_training, batchnorm = False) # 6*6*128 
 				 
 		dense0 = tf.reshape(conv11,[-1, 6*6*128])
 
