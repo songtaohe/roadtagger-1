@@ -7,7 +7,7 @@ prefix = sys.argv[2]
 result = []
 
 for region in regions:
-	s = prefix + "/region_%d_%d/" % region
+	s = prefix + "/region_%d_%d/" % (region[0], region[1])
 
 	result.append(s)
 
