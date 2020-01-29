@@ -649,7 +649,7 @@ class RoadTaggerModel():
 				_output_softmax = tf.nn.softmax(_output)
 
 				#_target = tf.concat(self._target_unstacks[base:base+d], axis = 1)
-				_target = self._target_unstacks[base]
+				_target = tf.reshape(self._target_unstacks[base], (-1))
 
 				loss = tf.reduce_mean(tf.nn.sparse_softmax_cross_entropy_with_logits(labels = _target, logits = self._output))
 				self.loss += loss 
