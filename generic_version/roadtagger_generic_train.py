@@ -80,6 +80,10 @@ if __name__ == "__main__":
 				t0 = time() 
 
 
+			if step % 10000 == 0:
+				model.saveModel(config["model_save_folder"] + "/model%d" % step)
+
+
 			if step in config["learningrate_decay_at_step"]:
 				lr = lr * config["learningrate_decay"]
 
