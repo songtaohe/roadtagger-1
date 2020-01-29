@@ -78,14 +78,14 @@ class myRoadNetwork():
 
 		dim = len(target_shape)
 
-		self.targets = np.zeros((len(jsongraph["nodes"]), len(target_shape)), dtype=np.int32)
-		self.mask = np.ones((len(jsongraph["nodes"])), dtype=np.float32)
+		self.roadnetwork.targets = np.zeros((len(jsongraph["nodes"]), len(target_shape)), dtype=np.int32)
+		self.roadnetwork.mask = np.ones((len(jsongraph["nodes"])), dtype=np.float32)
 
 		for nid in range(len(jsongraph["nodes"])):
 			for i in range(dim):
-				self.targets[nid,i] = jsongraph["nodelabels"][nid][i]
+				self.roadnetwork.targets[nid,i] = jsongraph["nodelabels"][nid][i]
 
-		self.preload_img = None 
+		self.roadnetwork.preload_img = None 
 			# self.preload_img = {}
 			# for nid in range(len(jsongraph["nodes"])):
 			# 	self.preload_img[nid] = scipy.ndimage.imread(tileFolder + "/tiles/img_%d.png" % nid).astype(np.float32)/255.0 
@@ -93,8 +93,8 @@ class myRoadNetwork():
 		 # 	if nid % 100 == 0:
 			# 	print(nid)
 
-		self.config = {}
-		self.config["folder"] = tileFolder
+		self.roadnetwork.config = {}
+		self.roadnetwork.config["folder"] = tileFolder
 
 	def SampleSubRoadNetwork(self,graph_size = 256):
 		return SubRoadNetwork(self.roadnetwork, graph_size = graph_size, search_mode = random.randint(0,3))
