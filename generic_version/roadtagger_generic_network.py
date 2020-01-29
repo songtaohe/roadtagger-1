@@ -1294,7 +1294,8 @@ class SubRoadNetwork():
 	
 		Image.fromarray(img).save(output)
 
-	
+	def GetGraphStructures(self):
+		return [self.tf_spares_graph_structure_fully_connected]
 	
 
 
