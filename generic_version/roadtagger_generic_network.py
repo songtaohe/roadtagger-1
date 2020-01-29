@@ -709,7 +709,7 @@ class SubRoadNetwork():
 		if no_image == False:
 			c = 0 
 
-			has_titles = os.path.isdir(output_folder + "/"+tiles_name) or os.path.isdir("/data/songtao/DeepRoadMateinfo/"+ self.config["folder"] + "/"+tiles_name)
+			has_titles = os.path.isdir(output_folder +tiles_name) or os.path.isdir(output_folder + "/"+tiles_name) or os.path.isdir("/data/songtao/DeepRoadMateinfo/"+ self.config["folder"] + "/"+tiles_name)
 
 			if has_titles == False:
 				large_image = scipy.ndimage.imread(output_folder+"/sat_16384.png").astype(np.uint8)
@@ -720,9 +720,9 @@ class SubRoadNetwork():
 					if self.parentRoadNetowrk.preload_img is not None:
 						img = self.parentRoadNetowrk.preload_img[nid]
 					else:
-						print("Error! No preloaded images")
-						print(output_folder + "/"+tiles_name)
-						exit()
+						#print("Error! No preloaded images")
+						#print(output_folder + "/"+tiles_name)
+						#exit()
 						try:
 							img = scipy.ndimage.imread(output_folder + "/"+tiles_name+"/img_%d.png" % nid).astype(np.float32)/255.0 
 						except:
