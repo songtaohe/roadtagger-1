@@ -474,7 +474,7 @@ class SubRoadNetwork():
 		self.train_cnn_batch = train_cnn_batch
 
 		label_list = []
-		for k in self.parentRoadNetowrk.nodes.keys():
+		for k in self.parentRoadNetowrk.annotation.keys():
 			label_list.append(k) 
 
 		seed_node = random.choice(label_list)
