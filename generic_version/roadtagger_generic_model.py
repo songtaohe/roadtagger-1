@@ -628,13 +628,13 @@ class RoadTaggerModel():
 			self._output_unstacks_reshape.append(tf.reshape(x, shape=[-1,1]))
 		
 		if self.gnn_type != "none":
-			self._output_unstacks_whole_graph = tf.unstack(self._output_whole_graph, axis = 1)
 			self._target_unstacks = tf.unstack(self.target, axis = 1)
 			self._target_unstacks = [tf.reshape(x, shape=[-1,1]) for x in self._target_unstacks]
-			self._output_unstacks_whole_graph_reshape = []
 			
 
-
+			self._output_unstacks_whole_graph = tf.unstack(self._output_whole_graph, axis = 1)
+			self._output_unstacks_whole_graph_reshape = []
+			
 			for x in self._output_unstacks_whole_graph:
 				#print(x, tf.reshape(x, shape=[-1,1]))
 				self._output_unstacks_whole_graph_reshape.append(tf.reshape(x, shape=[-1,1]))
@@ -648,14 +648,15 @@ class RoadTaggerModel():
 				_output = tf.concat(self._output_unstacks_whole_graph_reshape[base:base+d], axis = 1)
 				_output_softmax = tf.nn.softmax(_output)
 
-				_target = tf.concat(self._target_unstacks[base:base+d], axis = 1)
+				#_target = tf.concat(self._target_unstacks[base:base+d], axis = 1)
+				_target = self._target_unstacks[base]
 
-				loss = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(labels = _target, logits = self._output))
+				loss = tf.reduce_mean(tf.nn.sparse_softmax_cross_entropy_with_logits(labels = _target, logits = self._output))
 				self.loss += loss 
 
 				self._output_softmax_whole_graph.append(_output_softmax)
 				self.losses.append(loss)
-				base = base + d
+				base = base + 1
 
 
 		if self.gnn_type != "none":
@@ -683,7 +684,7 @@ class RoadTaggerModel():
 			self.train_op = tf.train.AdamOptimizer(learning_rate=self.lr).minimize(self.loss_fake)
 
 		else:
-			self.train_op = tf.train.AdamOptimizer(learning_rate=self.lr).minimize(self.loss + loss_addon)
+			self.train_op = tf.train.AdamOptimizer(learning_rate=self.lr).minimize(self.loss) # + loss_addon)
 
 			
 

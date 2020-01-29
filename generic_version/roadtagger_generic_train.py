@@ -134,8 +134,8 @@ if __name__ == "__main__":
 
 			items = model.Train(train_subgraph, train_op = model.train_op)
 
-			if step % 10 == 0:
-				print(step, items[0])
+			#if step % 10 == 0:
+			print(step, items[0])
 
 			step += 1
 
