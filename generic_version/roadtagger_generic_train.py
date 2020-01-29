@@ -48,8 +48,8 @@ if __name__ == "__main__":
 			items = model.Train(train_subgraph, train_op = model.train_op, learning_rate=lr)
 			sloss += items[0]
 
-			if step % 10 == 0:
-				print(step, items[0])
+			#if step % 10 == 0:
+			#	print(step, items[0])
 
 			#console = code.InteractiveConsole(locals())
 			#console.interact()

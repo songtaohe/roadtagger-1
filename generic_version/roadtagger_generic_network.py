@@ -580,8 +580,8 @@ class SubRoadNetwork():
 
 		self.virtual_intersection_node_ptr = len(self.subGraphNoadList)
 
-		self.generate_decomposited_graph()
-		self.generate_auxiliary_graph()
+		#self.generate_decomposited_graph()
+		#self.generate_auxiliary_graph()
 		self.generate_fully_connected_graph()
 
 
