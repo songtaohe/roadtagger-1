@@ -46,7 +46,7 @@ if __name__ == "__main__":
 
 				t0 = time() 
 				node_feature[st:ed,:] = model.GetIntermediateNodeFeature(input_region, st, ed)[0]
-				time_cnn += time() - t0 
+				#time_cnn += time() - t0 
 
 				st += batch_size
 
