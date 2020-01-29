@@ -1345,7 +1345,7 @@ class SubRoadNetwork():
 						cc += 1
 
 				if cc > 0 and local_maxma:
-					cv2.circle(img, (y0,x0), 5, (0,0,255), 1)
+					cv2.circle(img, (y0,x0), 5, (0,0,255), 2)
 
 		cv2.imwrite(output, img)
 		#Image.fromarray(img).save(output)
