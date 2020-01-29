@@ -35,7 +35,7 @@ class RoadNetwork():
 		self.target = None 
 		self.target_mask = None 
 		self.sat_image = None 
-		self.loss_func = loss_func
+		self.loss_func = "CrossEntropy"
 
 		self.spares_graph_structure = None 
 		self.tf_spares_graph_structure = None 
