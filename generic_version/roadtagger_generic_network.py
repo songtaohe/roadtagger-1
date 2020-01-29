@@ -19,7 +19,7 @@ from rtree import index
 
 import opengm 
 
-from abc import ABC, abstractmethod 
+#from abc import ABC, abstractmethod 
 
 
 class RoadNetwork():
