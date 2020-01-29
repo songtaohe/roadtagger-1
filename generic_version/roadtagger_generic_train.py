@@ -119,6 +119,7 @@ if __name__ == "__main__":
 	preload_graph = None 
 	preload_graph_num = 2 # just for testing 
 	step = 0 
+	sloss = 0 
 	with tf.Session(config=tf.ConfigProto()) as sess:
 		model = RoadTaggerModel(sess, number_of_gnn_layer = config["propagation_step"], target_shape=target_shape)
 
@@ -136,17 +137,19 @@ if __name__ == "__main__":
 			train_subgraph = random.choice(preload_graph)
 
 			items = model.Train(train_subgraph, train_op = model.train_op, learning_rate=0.0001)
+			sloss += items[0]
 
-			#if step % 10 == 0:
-			print(step, items[0])
+			if step % 10 == 0:
+				print(step, items[0])
 
-			console = code.InteractiveConsole(locals())
-			console.interact()
-
+			#console = code.InteractiveConsole(locals())
+			#console.interact()
 			# exit()
 
 			step += 1
 
+			if step % 100 == 0:
+				print("average loss ", sloss/100.0, "at step", step)
 
 			if step % 1000 == 0:
 				model.saveModel(config["model_save_folder"] + "/backup")

@@ -756,7 +756,7 @@ class RoadTaggerModel():
 		if train_op is None:
 			train_op = self.train_op
 
-		return self.sess.run([self.loss,  train_op, self.homogeneous_loss, self.softmax_output_concat, self._output_whole_graph], feed_dict = feed_dict)
+		return self.sess.run([self.loss,  train_op], feed_dict = feed_dict)
 
 	def Evaluate(self, roadNetwork, batch_size = None):
 		r,m = roadNetwork.GetNodeDropoutMask(False, batch_size)
