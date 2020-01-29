@@ -35,7 +35,8 @@ class RoadTaggerModel():
 		for d in target_shape:
 			self.target_dim += d 
 
-
+		self.number_of_gnn_layer = number_of_gnn_layer 
+		
 		self.Build(image_size = 384)
 
 		self.sess.run(tf.global_variables_initializer())
