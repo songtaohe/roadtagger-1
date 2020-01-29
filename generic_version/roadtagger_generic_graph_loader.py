@@ -16,7 +16,7 @@ class myRoadNetworkLoader():
 	def __init__(self, jsonGraphFile, tileFolder, target_shape=[2]):
 		self.roadnetwork = RoadNetwork()
 
-		cfg = json.load(opne(tileFolder+"/config.json","r"))
+		cfg = json.load(open(tileFolder+"/config.json","r"))
 		self.roadnetwork.region = cfg["region"]
 
 		jsongraph = json.load(open(jsonGraphFile,"r"))
