@@ -549,7 +549,7 @@ class SubRoadNetwork():
 			# just random sample nodes with labels 
 			newGraphNodes = []
 
-			for i in xrange(train_cnn_preload):
+			for i in range(train_cnn_preload):
 				newGraphNodes.append(random.choice(label_list))
 				
 
@@ -672,8 +672,8 @@ class SubRoadNetwork():
 		self.remove_adjacent_matrix = remove_adjacent_matrix
 
 		if remove_adjacent_matrix == 1:
-			self.spares_graph_structure['indices'] = [(x,x) for x in xrange(len(self.subGraphNoadList))]
-			self.spares_graph_structure['values'] = [1.0 for x in xrange(len(self.subGraphNoadList))]
+			self.spares_graph_structure['indices'] = [(x,x) for x in range(len(self.subGraphNoadList))]
+			self.spares_graph_structure['values'] = [1.0 for x in range(len(self.subGraphNoadList))]
 			self.spares_graph_structure['shape'] = [len(self.subGraphNoadList), len(self.subGraphNoadList)]
 
 
@@ -872,7 +872,7 @@ class SubRoadNetwork():
 
 		#print(new_neighbor)
 
-		for node_id in xrange(len(self.subGraphNoadList)):
+		for node_id in range(len(self.subGraphNoadList)):
 			if node_id not in new_neighbor:
 				continue
 
@@ -1213,7 +1213,7 @@ class SubRoadNetwork():
 
 
 		if use_random:
-			for i in xrange(int(size*rate)):
+			for i in range(int(size*rate)):
 				c = random.randint(0,size-1)
 				ret[c,:] = np.random.uniform(-1.0, 1.0, size=62)
 				gradient_mask[c,:] = 1.0
