@@ -1338,7 +1338,7 @@ class SubRoadNetwork():
 						nnid = self.node_mapping[nei_node]
 						v = result[nnid,1]
 
-						if v > local_value:
+						if v >= local_value:
 							local_maxma = False
 							break
 
@@ -1347,12 +1347,8 @@ class SubRoadNetwork():
 				if cc > 0 and local_maxma:
 					cv2.circle(img, (y0,x0), 5, (0,0,255), 1)
 
-
-
-
-
-	
-		Image.fromarray(img).save(output)
+		cv2.imwrite(output, img)
+		#Image.fromarray(img).save(output)
 
 	def GetGraphStructures(self):
 		return [self.tf_spares_graph_structure_fully_connected]

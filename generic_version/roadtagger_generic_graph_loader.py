@@ -97,6 +97,33 @@ class myRoadNetworkLoader():
 		self.roadnetwork.config = {}
 		self.roadnetwork.config["folder"] = tileFolder
 
+	def annotation_filter_for_light_poles(self):
+		hasdata = {}
+
+		total = 0 
+		remove = 0 
+
+		for nid in range(len(jsongraph["nodes"])):
+			loc = jsongraph["nodes"][nid]
+
+			k = (int(loc[0]*111111.0) % 100, int(loc[1]*111111.0) * 100)
+
+			if jsongraph["nodelabels"][nid][0] > 0.5:
+				hasdata[k] = True
+
+		for nid in range(len(jsongraph["nodes"])):
+			loc = jsongraph["nodes"][nid]
+
+			k = (int(loc[0]*111111.0) % 100, int(loc[1]*111111.0) * 100)
+			total += 1
+			if k not in hasdata: 
+				self.roadnetwork.annotation[nid]["remove"] = 1
+				remove += 1 
+
+		print("remove %d nodes from %d nodes" % (remove, total))
+
+		
+
 	def graphsize(self):
 		return len(self.roadnetwork.annotation.keys())
 	def SampleSubRoadNetwork(self,graph_size = 256, reseed=False):
