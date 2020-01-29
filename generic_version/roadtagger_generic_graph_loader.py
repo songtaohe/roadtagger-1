@@ -44,7 +44,6 @@ class myRoadNetworkLoader():
 			self.roadnetwork.annotation[nid] = {}
 			self.roadnetwork.annotation[nid]["degree"] = len(self.roadnetwork.node_degree[nid])
 			self.roadnetwork.annotation[nid]["remove"] = 0
-			
 
 			heading_vector_lat = 0 
 			heading_vector_lon = 0

@@ -62,6 +62,7 @@ if __name__ == "__main__":
 			input_region.VisualizeResult(outputs[1], "output_%d.png" % gid)
 
 
+		tf.reset_default_graph()
 
 
 

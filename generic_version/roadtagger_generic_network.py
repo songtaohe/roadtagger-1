@@ -286,8 +286,6 @@ class RoadNetwork():
 			loc1 = self.nid2loc[nid1]
 			loc2 = self.nid2loc[nid2]
 
-
-
 			def inrange(lat,lon, region):
 				lat_mergin = 70*0.5/111111.0
 				lon_mergin = 70*0.5/111111.0 / math.cos(math.radians(region[0]))
@@ -475,7 +473,8 @@ class SubRoadNetwork():
 
 		label_list = []
 		for k in self.parentRoadNetowrk.annotation.keys():
-			label_list.append(k) 
+			if self.parentRoadNetowrk.annotation[k]["remove"] == 0:
+				label_list.append(k) 
 
 		seed_node = random.choice(label_list)
 
@@ -765,7 +764,7 @@ class SubRoadNetwork():
 
 				self.images[c,:,:,:] = self.image_augmentation(img, flag=augmentation) 
 				c = c + 1 
-				
+
 				if c % 100 == 0 and self.nonIntersectionNodeNum> 512:
 					print(c)
 
@@ -1329,6 +1328,27 @@ class SubRoadNetwork():
 				color = (0,value,1-value)
 
 				cv2.circle(img, (y0,x0), 3, color, -1)
+
+				local_value = result[nid,1]
+
+				cc = 0
+				local_maxma = True 
+				for nei_node in self.parentRoadNetowrk.node_degree[items[0]]:
+					if nei_node in self.node_mapping:
+						nnid = self.node_mapping[nei_node]
+						v = result[nnid,1]
+
+						if v > local_value:
+							local_maxma = False
+							break
+
+						cc += 1
+
+				if cc > 0 and local_maxma:
+					cv2.circle(img, (y0,x0), 5, (0,0,255), 1)
+
+
+
 
 
 	
