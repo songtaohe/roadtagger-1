@@ -18,7 +18,7 @@ image_size = 384
 
 
 class RoadTaggerModel():
-	def __init__(self, sess, cnn_type="simple", gnn_type="simple", loss_func = "L2", number_of_gnn_layer= 4, reuse = True, stage=None, homogeneous_loss_factor = 1.0, target_shape = [], graphs_num = 1):
+	def __init__(self, sess, cnn_type="simple2", gnn_type="Generic", loss_func = "L2", number_of_gnn_layer= 4, reuse = True, stage=None, homogeneous_loss_factor = 1.0, target_shape = [], graphs_num = 1):
 
 		self.stage = stage 
 		self.use_batchnorm = True
@@ -680,17 +680,10 @@ class RoadTaggerModel():
 
 			self.train_op = tf.train.AdamOptimizer(learning_rate=self.lr).minimize(self.loss_fake)
 
-			self.train_lane_op = tf.train.AdamOptimizer(learning_rate=self.lr).minimize(self.loss_fake)
-			self.train_type_op = tf.train.AdamOptimizer(learning_rate=self.lr).minimize(self.loss_fake)
-			self.train_bike_op = tf.train.AdamOptimizer(learning_rate=self.lr).minimize(self.loss_fake)
-
 		else:
 			self.train_op = tf.train.AdamOptimizer(learning_rate=self.lr).minimize(self.loss + loss_addon)
 
-			self.train_lane_op = tf.train.AdamOptimizer(learning_rate=self.lr).minimize(self.loss_lane_number + loss_addon)
-			self.train_type_op = tf.train.AdamOptimizer(learning_rate=self.lr).minimize(self.loss_roadtype + loss_addon)
-			self.train_bike_op = tf.train.AdamOptimizer(learning_rate=self.lr).minimize(self.loss_left_bike + loss_addon)
-
+			
 
 		self.summary_loss = []
 		self.test_loss =  tf.placeholder(tf.float32)
@@ -749,11 +742,10 @@ class RoadTaggerModel():
 			feed_dict[self.graph_structures[i]] = graph 
 			i = i + 1
 
-
 		if train_op is None:
 			train_op = self.train_op
 
-		return self.sess.run([self.loss, self._output_lane_number, self._output_roadtype, self.loss_lane_number, self.loss_left_park, self.loss_left_bike, self.loss_right_bike, self.loss_right_park, self.loss_roadtype,  train_op, self.homogeneous_loss], feed_dict = feed_dict)
+		return self.sess.run([self.loss,  train_op, self.homogeneous_loss], feed_dict = feed_dict)
 
 	def Evaluate(self, roadNetwork, batch_size = None):
 		r,m = roadNetwork.GetNodeDropoutMask(False, batch_size)
