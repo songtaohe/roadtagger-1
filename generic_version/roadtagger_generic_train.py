@@ -28,6 +28,7 @@ if __name__ == "__main__":
 	preload_graph = None 
 	preload_graph_num = config["subgraph_batch"] # just for testing 
 	step = 0 
+	lr = config["learningrate"]
 	sloss = 0 
 	with tf.Session(config=tf.ConfigProto()) as sess:
 		model = RoadTaggerModel(sess, number_of_gnn_layer = config["propagation_step"], target_shape=target_shape)
@@ -44,7 +45,7 @@ if __name__ == "__main__":
 
 			train_subgraph = random.choice(preload_graph)
 
-			items = model.Train(train_subgraph, train_op = model.train_op, learning_rate=0.0001)
+			items = model.Train(train_subgraph, train_op = model.train_op, learning_rate=lr)
 			sloss += items[0]
 
 			if step % 10 == 0:

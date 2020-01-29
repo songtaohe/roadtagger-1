@@ -5,6 +5,7 @@
 	"subgraph_size": 128,
 	"subgraph_reload_steps": 200,
 	"cnn_model": "simple",
+	"learningrate" : 0.001,
 	"gnn_model": "",
 	"model_save_folder":"model/",
 	"dataset_train": [

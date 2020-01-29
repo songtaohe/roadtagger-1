@@ -1326,6 +1326,9 @@ class SubRoadNetwork():
 			if nid in self.node_mapping:
 				nid = self.node_mapping[nid]
 
+				if self.nonIntersectionNodeNum <= nid:
+					continue
+					
 				x0,y0 = get_image_coordinate(loc[0], loc[1], 4096, self.parentRoadNetowrk.region)
 				
 				value = int(result[nid,1]*255) # from 0 to 1 
@@ -1371,7 +1374,7 @@ class SubRoadNetwork():
 		#Image.fromarray(img).save(output)
 
 	def GetGraphStructures(self):
-		return [self.tf_spares_graph_structure_fully_connected]
+		return [self.tf_spares_graph_structure]
 	
 
 
