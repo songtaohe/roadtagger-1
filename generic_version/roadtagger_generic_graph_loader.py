@@ -95,7 +95,7 @@ class myRoadNetworkLoader():
 		self.roadnetwork.config = {}
 		self.roadnetwork.config["folder"] = tileFolder
 
-	def graphsize():
+	def graphsize(self):
 		return len(self.roadnetwork.annotation.keys())
 	def SampleSubRoadNetwork(self,graph_size = 256, reseed=False):
 		return SubRoadNetwork(self.roadnetwork, graph_size = graph_size, search_mode = random.randint(0,3), reseed=reseed)
