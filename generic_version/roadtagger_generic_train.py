@@ -7,6 +7,7 @@ from roadtagger_generic_model import RoadTaggerModel
 import random
 import tensorflow as tf 
 import math
+import code 
 
 # example graph loader
 class myRoadNetwork():
@@ -130,7 +131,15 @@ if __name__ == "__main__":
 					preload_graph.append(random.choice(training_networks).SampleSubRoadNetwork())
 
 
+			console = code.InteractiveConsole(locals())
+			console.interact()
+
+			exit()
+
 			train_subgraph = random.choice(preload_graph)
+
+
+
 
 			items = model.Train(train_subgraph, train_op = model.train_op)
 
