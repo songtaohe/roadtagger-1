@@ -421,7 +421,7 @@ class RoadNetwork():
 		# self.config 
 
 		# call self.generate_road_segment()
-		
+		pass 
 
 
 	def dumpConsistency(self, root_folder = ""):
