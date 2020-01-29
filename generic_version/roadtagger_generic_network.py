@@ -23,7 +23,7 @@ from abc import ABC, abstractmethod
 
 
 class RoadNetwork():
-	def __init__(self, target_dim = 1, loss_func = "L2"):
+	def __init__(self):
 		self.edges = []
 		self.node_degree = {}
 		self.nodes = {}
@@ -74,7 +74,6 @@ class RoadNetwork():
 		print("#### Nodes (%d) ####" % len(self.nodes))
 		for k,v in self.nodes.iteritems():
 			print(k,v)
-
 
 		print("")
 		print("#### Edges (%d) ####" % len(self.edges))
@@ -440,10 +439,10 @@ def get_image_coordinate(lat, lon, size, region):
 
 def directionScore(roadNetwork, n1,n2,n3):
 		v1_lat = roadNetwork.nid2loc[n2][0] - roadNetwork.nid2loc[n1][0]
-		v1_lon = (roadNetwork.nid2loc[n2][1] - roadNetwork.nid2loc[n1][1]) * math.cos(math.radians(roadNetwork.nid2loc[n2][0]/111111.0))
+		v1_lon = (roadNetwork.nid2loc[n2][1] - roadNetwork.nid2loc[n1][1]) * math.cos(math.radians(roadNetwork.nid2loc[n2][0]))
 
 		v2_lat = roadNetwork.nid2loc[n3][0] - roadNetwork.nid2loc[n2][0]
-		v2_lon = (roadNetwork.nid2loc[n3][1] - roadNetwork.nid2loc[n2][1]) * math.cos(math.radians(roadNetwork.nid2loc[n2][0]/111111.0))
+		v2_lon = (roadNetwork.nid2loc[n3][1] - roadNetwork.nid2loc[n2][1]) * math.cos(math.radians(roadNetwork.nid2loc[n2][0]))
 
 
 		v1_l = np.sqrt(v1_lat * v1_lat + v1_lon * v1_lon)
@@ -471,7 +470,6 @@ class SubRoadNetwork():
 		self.annotation = parentRoadNetowrk.annotation
 		self.config = parentRoadNetowrk.config 
 		
-
 		self.train_cnn_only = train_cnn_only
 		self.train_cnn_batch = train_cnn_batch
 
@@ -490,8 +488,6 @@ class SubRoadNetwork():
 
 
 		if train_cnn_only == False:
-
-			
 			# bfs !
 			visited = []
 			newGraphNodes = []
@@ -763,21 +759,13 @@ class SubRoadNetwork():
 				# 	img = img.astype(np.float32)/255.0 
 
 
-
-
-
 				self.images[c,:,:,:] = self.image_augmentation(img, flag=augmentation) 
 				c = c + 1 
 
 
-
-
-
-
-
 		#load targets and masks
 
-		self.targets = np.zeros((self.nonIntersectionNodeNum, 6), dtype = np.int32)
+		self.targets = np.zeros((self.nonIntersectionNodeNum, len(self.target_shape)), dtype = np.int32)
 		self.mask = np.zeros((self.nonIntersectionNodeNum), dtype = np.float32)
 
 		
@@ -1083,7 +1071,7 @@ class SubRoadNetwork():
 					lon2 = self.parentRoadNetowrk.nid2loc[nnid][1]
 
 					a = lat2 - lat
-					b = (lon2 - lon) * math.cos(math.radians(lat2/111111.0)) 
+					b = (lon2 - lon) * math.cos(math.radians(lat2)) 
 
 
 					d = a*a + b*b
@@ -1293,8 +1281,8 @@ class SubRoadNetwork():
 
 				d = np.shape(self.parentRoadNetowrk.sat_image)[0]
 
-				x0,y0 = get_image_coordinate(loc0[0]/111111.0, loc0[1]/111111.0, d,self.parentRoadNetowrk.region)
-				x1,y1 = get_image_coordinate(loc1[0]/111111.0, loc1[1]/111111.0, d,self.parentRoadNetowrk.region)
+				x0,y0 = get_image_coordinate(loc0[0], loc0[1], d,self.parentRoadNetowrk.region)
+				x1,y1 = get_image_coordinate(loc1[0], loc1[1], d,self.parentRoadNetowrk.region)
 
 
 				cv2.line(img, (y0,x0), (y1,x1), (0,0,255),2)
