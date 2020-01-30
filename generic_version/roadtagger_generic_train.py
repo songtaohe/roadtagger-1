@@ -19,7 +19,6 @@ if __name__ == "__main__":
 	training_networks = []
 	#validation_networks = []
 
-
 	for folder in config["dataset_train"]:
 		print("loading... ", folder)
 		network = myRoadNetworkLoader(folder + "/graph.json", folder, target_shape=target_shape)
