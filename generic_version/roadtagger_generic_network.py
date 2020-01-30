@@ -1299,22 +1299,22 @@ class SubRoadNetwork():
 	
 		Image.fromarray(img).save(output)
 
-	def VisualizeResult(self, result, output = "default.png"):
-		img = cv2.imread(self.config["folder"]+"/sat_4096.png")
+	def VisualizeResult(self, result, output = "default.png", size = 4096, imgname = "/sat_4096.png", scale = 1 ):
+		img = cv2.imread(self.config["folder"]+imgname)
 
 		for edge in self.parentRoadNetowrk.edges:
 			if edge[0] in self.subGraphNoadList and edge[1] in self.subGraphNoadList:
 				loc0 = self.parentRoadNetowrk.nid2loc[edge[0]]
 				loc1 = self.parentRoadNetowrk.nid2loc[edge[1]]
 
-				d = 4096
+				d = size
 
 				x0,y0 = get_image_coordinate(loc0[0], loc0[1], d, self.parentRoadNetowrk.region)
 				x1,y1 = get_image_coordinate(loc1[0], loc1[1], d, self.parentRoadNetowrk.region)
 
-				cv2.line(img, (y0,x0), (y1,x1), (128,255,255),2)
-				cv2.circle(img, (y0,x0), 4, (128,255,255), -1)
-				cv2.circle(img, (y1,x1), 4, (128,255,255), -1)
+				cv2.line(img, (y0,x0), (y1,x1), (128,255,255),2 * scale)
+				cv2.circle(img, (y0,x0), 4 * scale, (128,255,255), -1)
+				cv2.circle(img, (y1,x1), 4 * scale, (128,255,255), -1)
 
 
 		correct = 0 
@@ -1330,7 +1330,7 @@ class SubRoadNetwork():
 				if self.nonIntersectionNodeNum <= nid:
 					continue
 
-				x0,y0 = get_image_coordinate(loc[0], loc[1], 4096, self.parentRoadNetowrk.region)
+				x0,y0 = get_image_coordinate(loc[0], loc[1], size, self.parentRoadNetowrk.region)
 				
 				value = int(result[nid,1]*255) # from 0 to 1 
 
@@ -1354,12 +1354,12 @@ class SubRoadNetwork():
 						cc += 1
 
 				if cc > 0 and local_maxma:
-					cv2.circle(img, (y0,x0), 4, (0,0,255), -1)
+					cv2.circle(img, (y0,x0), 4 * scale, (0,0,255), -1)
 
 					inferred += 1.0
 
 				if self.targets[nid,0] > 0.5:
-					cv2.circle(img, (y0,x0), 5, (255,0,0), 2)
+					cv2.circle(img, (y0,x0), 5 * scale , (255,0,0), 2* scale)
 
 					total += 1.0
 
@@ -1370,7 +1370,7 @@ class SubRoadNetwork():
 						haslight = True 
 						correct += 1.0 
 						correct1hop += 1.0
-						cv2.circle(img, (y0,x0), 4, (0,255,0), -1)
+						cv2.circle(img, (y0,x0), 4 * scale, (0,255,0), -1)
 						
 					else:
 						for nei_node in self.parentRoadNetowrk.node_degree[items[0]]:

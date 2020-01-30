@@ -316,7 +316,7 @@ class RoadTaggerModel():
 			
 
 			if self.GRU==True:
-				print("use gru")
+				#print("use gru")
 				x_ = common.create_gcn_layer_GRU('gcn_loop', x_, self.graph_structure, 128, 128, activation = tf.nn.tanh)
 
 			else:
@@ -360,7 +360,7 @@ class RoadTaggerModel():
 			#x_ = common.create_gcn_layer_2('gcn_loop'+str(i), x_, self.graph_structure, 128, 128, activation = tf.nn.tanh)
 			
 			if self.GRU==True:
-				print("use gru")
+				#print("use gru")
 				x_ = common.create_gcn_layer_GRU_one_more_fc('gcn_loop', x_, self.graph_structure_fully_connected, 128, 128, activation = tf.nn.tanh)
 
 			else:
@@ -400,7 +400,7 @@ class RoadTaggerModel():
 
 
 		for i in range(loop):
-			print("use gru generic")
+			#print("use gru generic")
 			x_gnn = common.create_gcn_layer_GRU_generic_one_fc('gcn_loop', x_gnn, graphs, 128, 128, activation = tf.nn.tanh)
 
 
@@ -437,7 +437,7 @@ class RoadTaggerModel():
 			#x_ = common.create_gcn_layer_2('gcn_loop'+str(i), x_, self.graph_structure, 128, 128, activation = tf.nn.tanh)
 			
 			if self.GRU==True:
-				print("use gru")
+				#print("use gru")
 				x_ = common.create_gcn_layer_GRU_bidirectional_one_fc('gcn_loop', x_, self.graph_structure_decomposed_dir1, self.graph_structure_decomposed_dir2, 128, 128, activation = tf.nn.tanh)
 
 			else:
@@ -477,7 +477,7 @@ class RoadTaggerModel():
 			#x_ = common.create_gcn_layer_2('gcn_loop'+str(i), x_, self.graph_structure, 128, 128, activation = tf.nn.tanh)
 			
 			if self.GRU==True:
-				print("use gru")
+				#print("use gru")
 				x_ = common.create_gcn_layer_GRU_one_more_fc('gcn_loop', x_, self.graph_structure_fully_connected, 128, 128, activation = tf.nn.tanh)
 
 			else:
@@ -498,7 +498,7 @@ class RoadTaggerModel():
 			#x_ = common.create_gcn_layer_2('gcn_loop'+str(i), x_, self.graph_structure, 128, 128, activation = tf.nn.tanh)
 			
 			if self.GRU==True:
-				print("use gru")
+				#print("use gru")
 				x__ = common.create_gcn_layer_GRU_bidirectional_one_fc('gcn_loop2', x__, self.graph_structure_decomposed_dir1, self.graph_structure_decomposed_dir2, 128, 128, activation = tf.nn.tanh)
 
 			else:
