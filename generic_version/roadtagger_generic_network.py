@@ -1388,6 +1388,72 @@ class SubRoadNetwork():
 		print("Result: one-hop",inferred, correct1hop, total, "precision %.3f recall %.3f" % (correct1hop/inferred, correct1hop/total))
 
 		cv2.imwrite(output, img)
+
+	def VisualizeResultLight(self, result, output = "default.png", size = 4096, imgname = "/sat_4096.png", scale = 1 ):
+		img = cv2.imread(self.config["folder"]+imgname)
+
+		for edge in self.parentRoadNetowrk.edges:
+			if edge[0] in self.subGraphNoadList and edge[1] in self.subGraphNoadList:
+				loc0 = self.parentRoadNetowrk.nid2loc[edge[0]]
+				loc1 = self.parentRoadNetowrk.nid2loc[edge[1]]
+
+				d = size
+
+				x0,y0 = get_image_coordinate(loc0[0], loc0[1], d, self.parentRoadNetowrk.region)
+				x1,y1 = get_image_coordinate(loc1[0], loc1[1], d, self.parentRoadNetowrk.region)
+
+				cv2.line(img, (y0,x0), (y1,x1), (128,255,255),2 * scale)
+				cv2.circle(img, (y0,x0), 4 * scale, (128,255,255), -1)
+				cv2.circle(img, (y1,x1), 4 * scale, (128,255,255), -1)
+
+
+		correct = 0 
+		correct1hop = 0 
+		inferred = 0 
+		total = 0 
+
+		min_v = 1.0 
+		max_v = 0.0 
+		for loc, items in self.parentRoadNetowrk.nodes.items():
+			nid = items[0]
+			if nid in self.node_mapping:
+				nid = self.node_mapping[nid]
+
+				if self.nonIntersectionNodeNum <= nid:
+					continue
+
+				x0,y0 = get_image_coordinate(loc[0], loc[1], size, self.parentRoadNetowrk.region)
+				
+				value = result[nid,1] # from 0 to 1 
+
+				if value>max_v:
+					max_v = value 
+				if value < min_v:
+					min_v = value 
+
+
+		print("min_v", min_v, "max_v", max_v)
+
+		for loc, items in self.parentRoadNetowrk.nodes.items():
+			nid = items[0]
+			if nid in self.node_mapping:
+				nid = self.node_mapping[nid]
+
+				if self.nonIntersectionNodeNum <= nid:
+					continue
+
+				x0,y0 = get_image_coordinate(loc[0], loc[1], size, self.parentRoadNetowrk.region)
+				
+				value = int((result[nid,1]-min_v)/(max_v-min_v)*255) # from 0 to 1 
+
+				color = (0,value,1-value)
+
+				cv2.circle(img, (y0,x0), 6, color, -1)
+
+		print("Result: exact  ",inferred, correct, total, "precision %.3f recall %.3f" % (correct/inferred, correct/total))
+		print("Result: one-hop",inferred, correct1hop, total, "precision %.3f recall %.3f" % (correct1hop/inferred, correct1hop/total))
+
+		cv2.imwrite(output, img)
 		#Image.fromarray(img).save(output)
 
 	def GetGraphStructures(self):
