@@ -1384,8 +1384,8 @@ class SubRoadNetwork():
 							cv2.circle(img, (y0,x0), 4, (0,128,0), -1)
 							correct1hop += 1.0
 
-		print("exact  ",inferred, correct, total, "precision %.3f recall %.3f" % (correct/inferred, correct/total))
-		print("one-hop",inferred, correct1hop, total, "precision %.3f recall %.3f" % (correct1hop/inferred, correct1hop/total))
+		print("Result: exact  ",inferred, correct, total, "precision %.3f recall %.3f" % (correct/inferred, correct/total))
+		print("Result: one-hop",inferred, correct1hop, total, "precision %.3f recall %.3f" % (correct1hop/inferred, correct1hop/total))
 
 		cv2.imwrite(output, img)
 		#Image.fromarray(img).save(output)
