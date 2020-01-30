@@ -61,7 +61,7 @@ if __name__ == "__main__":
 			outputs = model.EvaluateWithIntermediateNodeFeature(input_region, node_feature)
 
 			input_region.VisualizeResult(outputs[1], "output_%d.png" % gid)
-			input_region.VisualizeResult(outputs[1], "output_%d.png" % gid, imgname = "/sat_16384.png", size=16384, scale=3)
+			input_region.VisualizeResult(outputs[1], "output_4x_%d.png" % gid, imgname = "/sat_16384.png", size=16384, scale=3)
 
 		tf.reset_default_graph()
 
